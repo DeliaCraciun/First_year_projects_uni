@@ -1,0 +1,65 @@
+	Tema 2 SDA-CC
+
+Timp de implementare:15 ore
+
+Structuri:
+	-Cea care contine datele unui nod prezenta in tema;(QuadTreeNode)
+	-O structura aditionala pentru a retine poineri catre copiii nodurilor
+	si contine si datele dintr-un nod(adica structura anterioara);(QuadTree)
+	-O structura pentru a citi matricea care contine culorile
+	RGB.(culori)
+	CERINTA 1
+Main:
+	-Primeste argumente in linia de comanda pentru compresie (-c) si numele fisiereelor
+	pentru input si output.Formatul pentru argumentele in linia de comanda este urmatorul:
+	./quadtree -c input.ppm output.out
+	
+	-Citim primele 3 linii din fisierul binar  in care se specifica tipul pozei, dimensiunile
+	ei si numarul maxim al unei culori.Aloc matricea in care urmeaza sa citesc pixelii din
+	fisierul binar, dupa care o citesc, fiecare element din matrice avand un anumit numar
+	de pixeli rosii, verzi sau albastri.Daca se cere compresia imaginii din linia de comanda
+	atunci vom crea un arbore cuatenar in care se va afla imaginea dupa care vom pune arborele
+	 intr-un vector de compresie.
+	-Afisarea se realizeaza tot intr-un fisier binar, punand pe aceeasi linie numarul de frunze,
+	numarul de noduri si vectorul in sine care contine toate nodurile.
+	-Dezalocam memoria pe care am alocat-o pentru arbore, vector si matrice.Inchidem fisierul.
+
+Functia make_tree:
+		
+	-Primeste ca parametrii: matricea, doua pozitii x,y,nodul de la care se porneste, factorul,
+	numarul de apeluri care va rezulta in urma crearii arborelui si numarul de frunze.
+	-Se aloca copiii nodului primit ca parametru si campul lor data pentru a fii umplut.
+	-Se calculeaza pentru fiecare nod primit inaltimea si latimea corespunzatoare in matrice
+	pentru a putea fi parcurs block-ul  potrivit din matrice pentru a calcula suma culorilor
+	din fiecare tip (RGB).Dupa aceste sume sunt aflate, se pot calcula culorile medii care
+	urmeaza sa fie puse in nodul curent.
+	-Pentru a calcula MEAN este parcurs din nou block-ul respectiv din matrice si se efectueaza
+	acea suma a produselor diferentelor dintre culoarea medie si culoarea bruta din matrice.Dupa
+	care MEAN este impartit la aria nodului inmultita cu 3.
+	-Apoi verificam cum este MEAN-ul fata de factor.Daca acesta este mai mic sau egal inseamna
+	ca patratul nu mai trebuie impartit si s-a ajuns la un nod frunza care se adauga la numarul de 
+	frunze deja existente.Se initializeaza copiii nodului cu NULL si indicii catre acestia cu -1 si
+	se indexeaza nodul in functie de numarul de apeluri ale functiei.Altfel, actualizam aria copiilor 
+	ca fiind aria nodului parinte impartita la 4 si indexam si nodul la care ne aflam,la fel in functie
+	de numarul apelului la care ne aflam.Apoi se apeleaza recursiv functia cu copiii nodului parine si
+	cu pozitia x,y a patratului in functie de pozitia copilului( sttanga sus,dreapta sus sau dreapta jos,
+	dreapta jos).
+
+Functia create_vector:
+
+	-Primeste ca parametrii vectorul de tip QuadtreeNode(prima structura), nodul radacina si indicele
+	din vector.
+	-Vom parcurge arborele recursiv, ducandu-ne mereu catre copiii nodului la care ma aflu.Daca nodul 
+	la care sunt este NULL inseamna ca am parcurs deja o bucata din arbore, ajungand la nodurile frunza
+	si ma intorc la celelalte apeluri catre ceilalti copii pana se termina.
+	-Astfel, daca nodul la care ma aflu exista in memorie, umplu campurile de la pozitia indice din vector
+	cu ce se afla in nod.Apoi verific daca copiii nodurilor exista, indicii care repreznta indexarea lor
+	in vector pot fi atribuiti in acesta.Altfel, indicii copiilor din nodul curent din vector va fi -1,
+	pnetru a semnala ca nu exista.Dupa toate aceste verificari incrementez indicele din vector si reapelez
+	recursiv fnctia pentru fiecare copil al nodului curent.
+
+Functia free_tree:
+	
+	-Primeste ca parametru un nod, incepand din MAIN cu nodul radacina.
+	-Daca s-a ajuns la un nod nealocat, termin apelul respectiv.Altfel, apelez recursiv functia pentru
+	fiecare copul al nodului curent si eliberez nodul de campul data si il eliberez si pe el din memorie.

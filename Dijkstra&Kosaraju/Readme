@@ -1,0 +1,68 @@
+	Tema 3- Grafuri
+
+Functia main:
+
+	-Se citesc de la tastatura datele de intrare.
+	-Se aloca dinamic matricea asociata grafului si copia acesteia.
+	-Matricile se initializeaza cu 0 unde 2 noduri nu au legaturi.Daca 
+doua noduri au legaturi voi pune costul drumului in acea pozitie din matrice.
+	-Daca primesc de la tastarua "e1" ma voi folosi de functia dijkstra.
+	-Daca primesc de la tastatura "e2" voi folosi functia kosaraju.
+
+Functia dijkstra:
+
+	-Primul lucru imi initializez vectorul de distante cu infinit si vectorul
+de vizitati cu 0 pentru inca nu am vizitat niciun nod.Imi initializez vectorii
+care imi vor contine drumul de dus si de intoarcere cu -1, pentru a-mi indica
+ca inca n-am trecut prin niciun nod.Daca am apelat functia pentru drumul de dus
+o sa am o variabila egala cu 0,daca sunt pe drumul de intoarcere variabila o sa fie 1.
+
+	-Initializez distanta de nodul sursa cu 0 si il marchez ca vizitat.
+	
+	-Imi pun in vectorul de distante costul de la nodul sursa la nodurile care au 
+legatura cu acesta.
+
+	-Dupa aceea incerc sa-mi gasesc cel mai scurt drum pana cand am ajuns la nodul
+destinatie, adica pana cand in vectorul de vizitat, la pozitia egala cu nodul terminal 
+am 1.Apoi, de la nodul la care ma aflu incerc sa gasesc nodul cel mai apropiat de acesta 
+si ii retin indicele, marcandu-l ca vizitat.In continuare, verific daca nu cumva exista
+pentru nodul la care ma aflu un drum mai scurt, cat timp nodul inca nu este vizitat.
+Daca am gasit un drum mai scurt,updatez costul nou in vectorul de distante.Tot aici retin
+si indicele acestuia pentru a reconstrui drumul mai tarziu.
+
+	-Functia returneaza costul drumului cel mai scurt.	
+
+Functia printPath:
+	
+	-Aceasta functie se duce recursiv prin parintele fiecarui nod si il afiseaza(dupa
+apelul recursiv pentru ca in vectorul de parinti acestia se afla in ordine inversa).	
+
+Functia kosaraju:
+
+	-Voi avea un vector ("scc") in care imi voi retine elementele din componenta tare
+conexa, initializand-o cu -1.
+
+	-Pentru fiecare nod din graf, cat timp inca nu l-am vizitat, incep sa verific daca face
+parte dintr-o componenta tare conexa.Daca e depozit,nu il voi lua in calcul si voi scadea din
+numarul de comp. tare conexe.Altfel, voi apela cele doua functii de pargure in adancime.Cele
+doua functii imi vor parcurge graful in adancime(odata pentru graful normal si odata pentru el 
+transpus) si imi vor marca in vectorii de vizitat prin cele elemente au trecut.In finalul functiei 
+kosaraju verific daca un nod a fost vizitat in ambele dfs-uri, inseamna ca face parte dintr-o 
+componenta tare conexa si il pun in vectoul de componente tare cconexe.
+
+	-La finalul functiei afisez numarul lor si pe acestea.
+
+Functia char_to_int32:
+
+	-Imi transforma un string intr-un numar
+
+Functia free_task1_2:
+
+	-Imi elibereaza memoria pentru vectorii si matricile asociate grafului alocate pentru
+primele 2 task-uri.
+
+Functia exist:
+
+	-Imi returneaza 1 daca un element cautat a fost gasit in vector,0 altfel.
+
+	

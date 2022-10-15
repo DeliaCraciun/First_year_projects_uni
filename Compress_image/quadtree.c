@@ -89,10 +89,9 @@ void create_vector(QuadtreeNode **tree_vect, Quadtree *node,int *indice)
         
     }
 
-    //printf("INDEX: %lld \nCopiii:%d %d %d %d \n", node->index, (*tree_vect)[*indice].top_left, (*tree_vect)[*indice].top_right, (*tree_vect)[*indice].bottom_right, (*tree_vect)[*indice].bottom_left); 
-     //printf("dasda");
+
     (*indice)++;
-  //  if( node->bottomLeftTree != NULL && node->bottomRightTree != NULL && node->topLeftTree != NULL && node->topRightTree != NULL)
+
     create_vector(&(*tree_vect), node->topLeftTree , indice);
     create_vector(&(*tree_vect), node->topRightTree , indice);
     create_vector(&(*tree_vect), node->bottomRightTree , indice);
@@ -210,87 +209,7 @@ void free_tree(Quadtree **root) {
     *root = NULL;
 }
 
-// void decompress(culori ***mat, int point_x, int point_y, Quadtree *node,int *cont)
-// {
-//     unsigned long long int width, height;
-//     unsigned long long int i,j;
-//     unsigned long long int a=0;
-//     width = sqrt(node->data->area);
-//     height = width;
-//     //printf("%lld %lld\n", width, height);
-//     // printf("-->%d\n",node->index);
-//     if( *cont == 0) //primul apel al functiei
-//     {  
-//         //aloc matricea cu dimensiunea din root->area
-//         *mat = (culori **)malloc(sizeof(culori*) * height);
-//         for( i = 0; i < width; i++)
-//             (*mat)[i] = (culori *)malloc(sizeof(culori) * width);
 
-//     }
-//     (*cont)++;
-    
-//     //if( node != NULL)
-//     //{
-//     if( node->bottomLeftTree == NULL && node->bottomRightTree == NULL && node->topLeftTree == NULL && node->topRightTree == NULL)
-//     {
-//         //inseana ca n-am ajuns la nodurile frunza si trebuie continuata parcurgerea arborelui
-//         // printf("INDICE %lld red %d green %d blue %d\n", node->index, node->data->red, node->data->green, node->data->blue);
-//         for (j = point_y; j < point_y + height; j++)
-//         {
-//             for (i = point_x; i < point_x + width; i++)
-//             {
-//                 (*mat)[i][j].blue  = node->data->blue;
-//                 (*mat)[i][j].red   = node->data->red;
-//                 (*mat)[i][j].green = node->data->green;
-                
-//                 //printf("%d\n",(*mat)[i][j].blue);
-//                 //break;
-//                 a++;
-//             }
-//         }
-        
-
-//     }
-//     else 
-//     {
-//         //am ajuns la nodurile frunza si pun culorile in matrice
-//         //printf("da\n");
-//         // decompress(&(*mat), point_x, point_y, node->topLeftTree, cont);
-//         // decompress(&(*mat), point_x, point_y + width / 2, node->topRightTree, cont);
-//         // decompress(&(*mat), point_x + height / 2, point_y + width / 2, node->bottomRightTree, cont);
-//         // decompress(&(*mat), point_x + height / 2, point_y, node->bottomLeftTree, cont);
-//         decompress(&(*mat), point_x + height / 2, point_y, node->bottomLeftTree, cont);
-//         decompress(&(*mat), point_x + height / 2, point_y + width / 2, node->bottomRightTree, cont);
-//         decompress(&(*mat), point_x, point_y + width / 2, node->topRightTree, cont);
-//         decompress(&(*mat), point_x, point_y, node->topLeftTree, cont);
-
-//     }
-//  //   }
-// }
-// void decompression_test(Quadtree * node, rgb_t *** matrix, int x, int y, int size)
-// {
-// 	int i, j;
-
-// 	if(node->top_left == NULL && node->top_right == NULL && node->bottom_right == NULL && node->bottom_left == NULL)
-// 	{
-// 		for(i = y; i < y + size; i++)
-// 			for(j = x; j < x + size; j++)
-// 			{
-// 				(*matrix)[i][j].red   = node->data->red
-// 				(*matrix)[i][j].green = node->data->green;
-// 				(*matrix)[i][j].blue  = node->data->blue;
-// 			}
-// 	}
-// 	else
-// 	{
-// 		decompression(node->topLeftTree,     matrix, x,          y,          size/2);
-// 		decompression(node->topRightTree,    matrix, x+(size/2), y,          size/2);
-// 		decompression(node->bottomRightTree, matrix, x+(size/2), y+(size/2), size/2);
-// 		decompression(node->bottomLeftTree,  matrix, x,          y+(size/2), size/2);
-// 	}
-
-// 	free(node);
-// }
 Quadtree *vector_to_tree(QuadtreeNode *vect, int i, int nr_nodes)
 {
     Quadtree *aux = malloc(sizeof(Quadtree));
@@ -329,10 +248,7 @@ Quadtree *vector_to_tree(QuadtreeNode *vect, int i, int nr_nodes)
         aux->topRightTree = vector_to_tree(vect, vect[i].top_right, nr_nodes);
         aux->bottomRightTree = vector_to_tree(vect, vect[i].bottom_right, nr_nodes);
         aux->bottomLeftTree = vector_to_tree(vect, vect[i].bottom_left, nr_nodes);
-        // aux->topLeftTree = vector_to_tree(vect, 4*i+1, nr_nodes);
-        // aux->topRightTree = vector_to_tree(vect, 4*i+2, nr_nodes);
-        // aux->bottomRightTree = vector_to_tree(vect, 4*i+3, nr_nodes);
-        // aux->bottomLeftTree = vector_to_tree(vect, 4*i+4, nr_nodes);
+
     }
 
    }
